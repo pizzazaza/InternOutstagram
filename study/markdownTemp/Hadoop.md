@@ -128,8 +128,8 @@ https://sites.google.com/site/medialoghadoop/01-hadub-gicho/02-hadub-gaebal-junb
 
 ##참고자료
 https://sites.google.com/site/medialoghadoop/home
-
-
+설치
+https://tecadmin.net/setup-hadoop-single-node-cluster-on-centos-redhat/#
 
 ##질문
 
