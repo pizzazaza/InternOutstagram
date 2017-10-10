@@ -92,5 +92,7 @@ strict odering
 ##참고
 https://www.joinc.co.kr/w/man/12/zookeeper
 ##질문
-1. 하둡 설치 버전
-2. 
+
+
+131581 130472
+
