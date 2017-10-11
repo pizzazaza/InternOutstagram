@@ -8,7 +8,7 @@ Netflix와 왓챠는 별점을 바탕으로 추천
 
 
 ##협업 필터링
-- 빅데이터를 분류, 이를 기반으로 새로운 데이터에 대입하여 분류
+- 빅데이터 기반으로 만들어진 모델을 통해 새로운 데이터에 대입하여 분류
 - 사용자들의 과거 경향이 미래에도 그대로 유지될 것이라는 전제
 ###사용자 기반 협업 필터링
 - 비슷한 선호도를 가지는 다른 고객들의 상품에 대한 평가에 근거하여 추천
@@ -25,21 +25,18 @@ Netflix와 왓챠는 별점을 바탕으로 추천
 - 아마존, 넷플릭스에서 상품추천에 사용
 - Matrix Factorization 알고리즘 이용
 
-협업 필터링 In JAVA
-
-|이름|적용방법|제공 알고리즘|확장성|사례|
-|---|---|---|---|---|
-|Apache Mahout|쉬움|다양함|높음|많음|
-|Lenskit|쉬움|제한적|보통|적음|
-|EasyRec|매우 쉬움| 제한적|낮음|보통|
+###모델 기반 협업 필터링
+- 과거 사용자의 데이터를 이용해서 모델을 만들고 이를 이용해서 사용자의 성향을 예측
+- 데이터가 부족한 사용자에 대해서도 예측 가능
+- SVD(MF)
+- 
 ##Recommendation Completion 알고리즘 이용
 - explicit feedback
 	- 1~5점과 같이 정확한 수치로 feedback
 - implicit feedback
-	- 조회, 좋아요, 구매 등 의 feedback
-	- 간접적인 평가
-- Matrix Factorization
-	- 아래 설명  
+	- 조회, 좋아요, 구매 등 의 간접적인 평가로  feedback
+- **Matrix Factorization**
+	- 행렬 인수분해이용
 - baseline predictor
 	- 사용자나 아이템의 baseline을 예측
 	- convex optimization을 통해 parameter를 fitting하는 문제
@@ -62,12 +59,6 @@ Netflix와 왓챠는 별점을 바탕으로 추천
 	- row, column의 개수 k
 	- R = PQ
 	- k의 값이 클수록 에러는 낮지만 오버피팅 문제 발생 가능 
-- 가정
-	- original data matrix **R**가 low rank matrix 이다
-	- 우리가 복원하는 **R̂** 역시 low rank 조건을 가지므로 constrained optimization 문제로 바꿔서 쓸 수 있게 된다.
-	- optimal한 matrix completion의 objective function 표현 사진
-	-  min rank(R̂ )  s.t.  Ω(rui−r̂ui)=0 ∀u,i
-	-  Ω(**A**ui−**B**ui)는 matrix A와 B의 i,j 번째 element중 하나라도 비어있으면 0, 둘 다 element가 존재하면 둘의 차이로 정의된다.
 - 풀이 법
 	- rank condition이 convex optimization이 아니기 때문에 이 문제를 optimal하게 풀 수 없다. 
 	- **convex relaxation**
@@ -114,7 +105,7 @@ Netflix와 왓챠는 별점을 바탕으로 추천
 	- MAP
 - **Bayesian Personalized Ranking for Non-Uniformly Sampled Items [4]**
 	- observaed pair-wise competition 문제를 푸는 baysian personalized ranking optimization을 제안하고 MF로 확장한 다음 negative observation을 adaptive하게 sample하는 방식으로 개선
-	- 
+	
 - filter bubble : 내 입맛에 맞는 정보만 보여주고 나머지 정보는 감추어져 사용자의 감정 조장도 가능해 질 수 있다.
 
 
@@ -155,22 +146,25 @@ Netflix와 왓챠는 별점을 바탕으로 추천
 	- GUAVA라이브러리(https://code.google.com/p/guava-libraries)
 	- apache commons Math 라이브러리(http://commons.apache.org/proper/commons-math)
 		- 수치 계산용 라이브러리 
-###데이터 셋
-- 조회?
-- 좋아요
-- 댓글 유무
-- 언급
-- 해시태그
-- 경향
-	- 어떤 유저에 대해 좋아요를 누른다
-	- 좋아요를 자주 누른다
-	- 어떤 유저에 대해 댓글을 자주 작성한다
-	- 댓글을 자주 작성한다
-	- 조회만 한다
-	- 
-- training set / validation set / test set
-	- 6 : 2 : 2
-
+- DataSets
+	- 조회?
+	- 좋아요
+	- 댓글 유무
+	- 언급
+	- 해시태그
+	- 경향
+		- 어떤 유저에 대해 좋아요를 누른다
+		- 좋아요를 자주 누른다
+		- 어떤 유저에 대해 댓글을 자주 작성한다
+		- 댓글을 자주 작성한다
+		- 조회만 한다
+	- Neural Network 사용시
+		- training set / validation set / test set
+			- 6 : 2 : 2
+- CF의 단점을 보안하기 위해 contents-based filtering도 사용
+	- CF는 데이터가 부족하면 적용하기 힘듬
+	- contents-based filtering은 적은 데이터에도 잘 동작
+		- 해시태그를 클러스터링을 통해 비슷한 주제 찾기 
 ##boxplot
 - input과 output사이의 연관 정도를 파악
 ##참고
@@ -179,5 +173,5 @@ http://sanghyukchun.github.io/95/
 http://bahnsville.tistory.com/894
 http://wiki.gurubee.net/pages/viewpage.action?pageId=28118028
 https://brunch.co.kr/@kakao-it/72
-
+http://www.dbguide.net/db.db?cmd=view&boardUid=187389&boardConfigUid=9&categoryUid=216&boardIdx=161&boardStep=1
 
