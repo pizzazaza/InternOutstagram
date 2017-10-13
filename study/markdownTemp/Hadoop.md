@@ -1,52 +1,28 @@
 #Hadoop#
 
-#01. 하둡 기초
-##Big Data##
+#01. 하둡 
 ###빅데이터란?###
 - 데이터 규모에 따른 정의: 기존 데이터베이스 관리 도구의 데이터 수집, 저장, 관리, 분석 역량을 넘어서는 데이터
 - 업무 수행 방식에 따른 정의: 다양한 종류의 대규모 데이터로부터 저렴한 비용으로 가치를 창출하고, 데이터의 바른 수집, 발굴, 분석을 지원하도록 고안된 차세대 기술 및 아키텍처
-###3개 요소##
-- 크기
-- 속도
+
+
+
+###What is hadoop?
+- 대용량 데이터를 분산 처리할 수 있는 자바 기반의 오픈 소스 프레임워크
+- GFS와 MapReduce를 구현한 결과물
+- HDFS에 데이터를 저장하고, MapReduce를 이용해 데이터를 처리
+- 구축 비용과 비용 대비 빠른 데이터 처리, 장애를 대비
+- 기존 DB를 대치하는 것은 아니다.
+- 배치성으로 데이터를 저장하고 처리하는데 적합한 시스템 
+- 크기 :
+- 속도 :
 - 다양성
 	- 정형 : 고정된 필드에 저장
 	- 반정형 : 중간
 	- 비정형 : 고정된 필드에 저장되지 않는 데이터
 
-###01What is hadoop?
-- 대용량 데이터를 분산 처리할 수 있는 자바 기반의 오픈 소스 프레임워크
-- GFS와 MapReduce를 구현한 결과물
-- HDFS에 데이터를 저장하고, MapReduce를 이용해 데이터를 처리
-- 기존 DB를 대치하는 것은 아니다.
-- 구축 비용과 비용 대비 빠른 데이터 처리, 장애를 대비
-- 트렌젝션이나 무결성을 보정해야하는 데이터처리에는 적합하지 않다.
-- 배치성으로 데이터를 저장하고 처리하는데 적합한 시스템 
-- RDBMS와 협력하는 것
-###하둡 에코시스템###
-- 서브 프로젝트를 바탕으로 하둡 에코시스템 구성
-- ZooKeeper(분산 코디네이터) : 분산 환경에서 서버 간의 상호 조정이 필요한 다양한 서비스를 제공
-- Tajo : HDFS에서 SQL언어를 사용하여 실시간으로 데이터를 조회가능\
-- Mahout : 하둡 기반 데이터 마이닝 알고리즘을 구현한 오픈소스, 분류, 추천 및 협업 필터링 등 (추천 서비스에 사용하려고 했던 오픈소스, 협업 필터링을 통해 추천 서비스 구현해볼 예정)
-###NoSQL이란?###
-- RDB와 sql을 사용하지 않는 데이터베이스 혹은 데이터 저장소
-- 분산 환경에 RDBMS가 부적합
-- 키와 값이 쌍으로 구성
-- join이 없다
-- sharding으로 데이터 분할
-	- vertical partitioning ex) 칼럼별
-	- range based partitioning ex) 지역별
-	- key or hash based partitioning - 해시값을 이용해 서버를 정함
-	- directory based partitioning - 파티셔닝 메커니즘을 제공하는 추상화된 서비스를 만드는
-- replication(복제)
 
-##02하둡 개발 환경설정##
-https://sites.google.com/site/medialoghadoop/01-hadub-gicho/02-hadub-gaebal-junbi
-이외에 많은 사이트 참고
-아니면 설치하고 업데이트
-
--------------
-
-##03하둡 분산 파일 시스템
+##하둡 분산 파일 시스템 HDFS
 ###HDFS목표
 - 장애 복구
 - 스트리밍 방식의 데이터 접근
@@ -56,16 +32,13 @@ https://sites.google.com/site/medialoghadoop/01-hadub-gicho/02-hadub-gaebal-junb
 	- 읽기만 가능 -> 데이터 무결성 유지
 	- 파일 이동, 삭제, 복사 인터페이스 제공
 	- append도 추가
-###아키텍처
+###특징
 - 블록 구조의 파일 시스템
 - 파일을 특정 사이즈의 블록으로 나눠서 분산된 서버에 저장(기본 64MB)
 - HDFS는 스트리밍 방식으로 데이터를 순차적으로 검색할 수 있게 해 준다
 - 파일 저장 예시 그림
-- 저장 시 블록 3개씩 HDFS에 저
-- 마스터와 슬레이브 아키텍쳐로 구성
-- 마스터 - namenode
+- 저장 시 블록 3개씩 HDFS에 저장
 - namenode가 파일의 이름이나 위치, 기타 metadata를 관리, client가 HDFS에 저장된 파일에 접근 할 수 있도록 해준다.
-- 슬레이브 - 데이터노드
 - 실제 데이터처리(read, write)를 하는 것은 datanode들이다.
 - HDFS클라이언트는 API 형태로 사용자에게 제공
 - 아키텍쳐 그림 추가
@@ -76,7 +49,7 @@ https://sites.google.com/site/medialoghadoop/01-hadub-gicho/02-hadub-gaebal-junb
 
 ####파일 저장
 - 파일저장 사진추가
-- 3. 파일경로 존재시 에러처리, 없으면 생성하고 해당 경로 락
+- 3. 파일경로 존재 시 에러처리, 없으면 생성하고 해당 경로 락
 
 ####파일 열기
 - 파일 열기 사진 추가
@@ -122,12 +95,36 @@ https://sites.google.com/site/medialoghadoop/01-hadub-gicho/02-hadub-gaebal-junb
 - hadoop 내부에 쓰이는 유틸리티나 공통 모듈이 구현되어 있다
 
 ####MapReduce####
+####HIVE
+###하둡 에코시스템###
+- 서브 프로젝트를 바탕으로 하둡 에코시스템 구성
+- ZooKeeper(분산 코디네이터) : 분산 환경에서 서버 간의 상호 조정이 필요한 다양한 서비스를 제공
+- Tajo : HDFS에서 SQL언어를 사용하여 실시간으로 데이터를 조회가능\
+- Mahout : 하둡 기반 데이터 마이닝 알고리즘을 구현한 오픈소스, 분류, 추천 및 협업 필터링 등 (추천 서비스에 사용하려고 했던 오픈소스, 협업 필터링을 통해 추천 서비스 구현해볼 예정)
 
+###NoSQL이란?###
+- RDB와 sql을 사용하지 않는 데이터베이스 혹은 데이터 저장소
+- 분산 환경에 RDBMS가 부적합
+- 키와 값이 쌍으로 구성
+- join이 없다
+- sharding으로 데이터 분할
+	- vertical partitioning ex) 칼럼별
+	- range based partitioning ex) 지역별
+	- key or hash based partitioning - 해시값을 이용해 서버를 정함
+	- directory based partitioning - 파티셔닝 메커니즘을 제공하는 추상화된 서비스를 만드는
+- replication(복제)
+
+##하둡 개발 환경설정##
+https://sites.google.com/site/medialoghadoop/01-hadub-gicho/02-hadub-gaebal-junbi
+이외에 많은 사이트 참고
+아니면 설치하고 업데이트
+
+-------------
 
 
 
 ##참고자료
-https://sites.google.com/site/medialoghadoop/home
+http://rocksea.tistory.com/282
 설치
 https://tecadmin.net/setup-hadoop-single-node-cluster-on-centos-redhat/#
 

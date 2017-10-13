@@ -1,25 +1,23 @@
 ##Apache ZooKeeper##
 
 ###Waht is ZooKeeper?###
-- 분산시스템 관리를 도와주는 애플리케이(coordination service)
-- 시스템간 정보공유
-- 클러스터에 있는 서버들의 상태 체크
-- 분산된 서버들간에 동기화를 위한 락 처리
-- configuration information 환경 정보 유지보수(구성관리)
-- naming 이름정의
+- 분산시스템 관리를 도와주는 시스템: 코디네이션 서비스(coordination service) 시스템
+	- coordination data
+		- status information
+		- configuration
+		- location information
+		- etc
+- 분산 작업을 제어하기 위한 트리 형태의 데이터 저장소
 - providing distributed sysnchronization 분산 동기화
-- 설정관리
-- providing group service 
-- 중앙 집중화된 서비스 이다.
-
-###Zookeeper service
-- servers : 서로 모두 인지
-- 메모리에 상태 이미지(트랜잭션 로그, 스냡샷)
-- Clents는 single Zookeeper server에 연결
+- fail over(장애 조치) / fail back(장애 복구)
+- hadoop과 의존성이 없다
+- 디스크에 영구 저장이지만, 빠른 처리를 위해 모든 트리 노드를 메모리에 올려놓고 처리한다. <br>
+  즉, 대규모 데이터를 처리하기엔 무리, 메모리에 상태 이미지(트랜잭션 로그, 스냡샷)
 - TCP연결
 - synchronization primitives 제공
 - fast, 특히 read연산이 빠르다
 
+'''
 ###namespace
 - file system과 유사
 - / 를 이용한 구분
@@ -34,18 +32,26 @@
 - Ephemeral node
 	- 세션이 활성 상태에서 존재, 세션 종료시 삭제 
 	- tbd(to be decided: 결정되어야 하는 것)를 구현하고자 할대 유용 
-
-###Node
-- Ephemeral Node : 노드를 생성한 클라이언트의 세션이 연결되어 있을 경우만 유효
-- Persistent Node : 노드에 데이터를 저장하면 일부러 삭제하지 않는 이상 사제되지 않고 영구적으로 저장 
-- Sequence Node : 노드를 생성시 자동으로 sequence 번호가 붙는 노드, 주로 분산락을 구현하는데 이용
+-Node
+	- 영구 노드(Persistent Node) : 노드에 데이터를 저장하면 일부러 삭제하지 않는 이상 사제되지 않고 영구적으로 저장 
+	- 임시 노드(Ephemeral Node) : 노드를 생성한 클라이언트의 세션이 연결되어 있을 경우만 유효
+	- 순차 노드(Sequence Node) : 노드를 생성시 자동으로 sequence 번호가 붙는 노드, 주로 분산락을 구현하는데 이용
+- 파일 시스템의 디렉토리 구조와 비슷
+- CLI를 통해 탐색 가능	
 
 ###Watcher
-- 클라이언트가 특정 znode에 watch를 걸어놓으면, 해당 znode가 변경이 되었을때, 클라이언트로 callback호출을 날려서 클라이언트에 해당 znode가 변경이 되었음을 알려준다. 그리고 해당 watcher는 삭제 된다.
-
-###Conditional updates and watches
-- watche의 개념으로 지원
-- watche는 znode가 변경 될 때 트리거 되거나 삭제
+- watcher 란
+- znode와의 관계(+행동)
+- 동작 방법
+- 활용
+	- SPOF(Single Point Of Failure) 처리
+		- 액티브 서버 장애 발생시 스탠바이 서버가 액티브 서버로 동작  
+	- lock기능 구현
+'''
+###주키퍼 앙상블 (Zookeeper Ensemble)
+- ㅇㅇ
+- 읽기 쓰기 과정
+- Multi-Tenancy와 연관
 
 ###Guarantees
 - 순자적인 일관성
@@ -54,7 +60,7 @@
 - 신뢰성
 - 적시성(timeliness)
 
-###simple API
+###simple CUI command
 - 단순한 인터페이스 제공
 - create
 - delete
@@ -63,36 +69,32 @@
 - set data
 - get children
 - sync
+의미 추가
 
 ###활용
-- 디렉토리 형태의 데이타 저장소, 노드의 종류별 특성, watcher기능을 활용하여 다양한 시나리오에 사용
-- Queue : watcher와 sequence node를 이용하여 구현, 큐 솔류션이 존재, 클러스터간 통신용 큐로 활용
-- 서버 설정 정보 : 클러스터 내의 각 서버들의 설정 정보를 저장하는 저장소, watch를 이용해 변경 사항을 각 서버로 알려서 바로 반영 가능
-- 클러스터 정보 : 현재 클러스터에서 기동중인 서버 목록을 유지
-- 클로벌 락 : 분산 서버에서 공유 자원을 접근하려고 했을때, 해당 작업에 lock을 걸고 작업 수행하는 기능 구현 가능 
+- 분산 서버 간의 정보 공유
+- 서버 투입/제거 시 이벤트 처리
+- 서버 모니터링
+- 시스템 관리
+- 분산 락 처리
+- 장애 상황 판단 
 
 
-coddrdination data
-- status information
-- configuration
-- location information
-- etc
-
-
-name space
-znode - data node
-- 데이터 레지스터로 구성, 파일 및 디렉토리와 유사
-- 메모리에 데이터 보관, 처리량과 짧은 지연 시간
 
 replicated
 
 strict odering
 
+quorum : 어플리케이션에서 복제된 서버의 그룹을 quorum이라고 한다
 
 ##참고
-https://www.joinc.co.kr/w/man/12/zookeeper
+recipe <http://zookeeper.apache.org/doc/trunk/recipes.html>
+Zoopiter <http://d2.naver.com/helloworld/583580>
+Zookeeper를 활용한 redis cluster 구성 <http://d2.naver.com/helloworld/294797>
+
+<https://www.joinc.co.kr/w/man/12/zookeeper>
 ##질문
+- 트리 전체가 주키퍼 서버들이고 어느 서버에 내가 입력한 데이터가 저장되는지는 모르는건가?
 
 
-131581 130472
 
