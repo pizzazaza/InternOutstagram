@@ -1,6 +1,6 @@
-##Apache ZooKeeper##
+## Apache ZooKeeper
 
-###Waht is ZooKeeper?###
+### Waht is ZooKeeper?
 - 분산시스템 관리를 도와주는 시스템: 코디네이션 서비스(coordination service) 시스템
 	- coordination data
 		- status information
@@ -17,8 +17,8 @@
 - synchronization primitives 제공
 - fast, 특히 read연산이 빠르다
 
-'''
-###namespace
+
+### namespace
 - file system과 유사
 - / 를 이용한 구분
 - 모든 노드는 주키퍼의 namespace 경로에 의해 식별된다
@@ -39,7 +39,7 @@
 - 파일 시스템의 디렉토리 구조와 비슷
 - CLI를 통해 탐색 가능	
 
-###Watcher
+### Watcher
 - watcher 란
 - znode와의 관계(+행동)
 - 동작 방법
@@ -47,20 +47,19 @@
 	- SPOF(Single Point Of Failure) 처리
 		- 액티브 서버 장애 발생시 스탠바이 서버가 액티브 서버로 동작  
 	- lock기능 구현
-'''
-###주키퍼 앙상블 (Zookeeper Ensemble)
-- ㅇㅇ
+
+### 주키퍼 앙상블 (Zookeeper Ensemble)
 - 읽기 쓰기 과정
 - Multi-Tenancy와 연관
 
-###Guarantees
+### Guarantees
 - 순자적인 일관성
 - 원자성
 - 단일 시스템 이미지
 - 신뢰성
 - 적시성(timeliness)
 
-###simple CUI command
+### simple CUI command
 - 단순한 인터페이스 제공
 - create
 - delete
@@ -71,7 +70,7 @@
 - sync
 의미 추가
 
-###활용
+### 활용
 - 분산 서버 간의 정보 공유
 - 서버 투입/제거 시 이벤트 처리
 - 서버 모니터링
@@ -80,21 +79,13 @@
 - 장애 상황 판단 
 
 
-
-replicated
-
-strict odering
-
-quorum : 어플리케이션에서 복제된 서버의 그룹을 quorum이라고 한다
-
-##참고
+## 참고
 recipe <http://zookeeper.apache.org/doc/trunk/recipes.html>
 Zoopiter <http://d2.naver.com/helloworld/583580>
 Zookeeper를 활용한 redis cluster 구성 <http://d2.naver.com/helloworld/294797>
 
 <https://www.joinc.co.kr/w/man/12/zookeeper>
-##질문
-- 트리 전체가 주키퍼 서버들이고 어느 서버에 내가 입력한 데이터가 저장되는지는 모르는건가?
+
 
 
 

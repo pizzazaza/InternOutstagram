@@ -1,5 +1,5 @@
-#Hadoop Mahout
-##추천 문제
+# Hadoop Mahout
+## 추천 문제
 여태까지 사용자가 item에 대해 평가를 한 기록을 기반으로 사용자가 아직 사용하지 않은 item에 대한 사용자의 평가를 예측하는 문제, 마케팅, 타겟광고등의 영역에서 중요한 요소이다.
 제한된 자원을 최대한 효율적으로 분배할 수 있는 방법
 Netflix와 왓챠는 별점을 바탕으로 추천
@@ -7,10 +7,10 @@ Netflix와 왓챠는 별점을 바탕으로 추천
 페이스북은 좋아요를 바탕으로 페이지 추천, 타겟 광고를 보여준다.
 
 
-##협업 필터링
+## 협업 필터링
 - 빅데이터 기반으로 만들어진 모델을 통해 새로운 데이터에 대입하여 분류
 - 사용자들의 과거 경향이 미래에도 그대로 유지될 것이라는 전제
-###사용자 기반 협업 필터링
+### 사용자 기반 협업 필터링
 - 비슷한 선호도를 가지는 다른 고객들의 상품에 대한 평가에 근거하여 추천
 - 비슷한 성향을 가진 이웃을 찾고, 그 이웃의 선호도를 이용
 - 클러스터링, K-최대근접 이웃, 베이지안 네트워크
@@ -18,19 +18,19 @@ Netflix와 왓챠는 별점을 바탕으로 추천
 - 두 고객 사이에만 상관 관계를 구할 수 있다
 - Matrix Factorization 알고리즘 이용
 
-###아이템 기반 협업 필터링
+### 아이템 기반 협업 필터링
 - 과거에 좋아했던 상품과 비슷한 상품을 좋아하는 경항이 있다는 것을 기반
 - 고객이 선호도를 입력한 기존 상품들과, 예측 하고자 하는 상품과의 유사도를 계산하여 선호도를 측정
 - 고객들의 선호도만 이용, 고객간 유사도는 고려되지 않는다
 - 아마존, 넷플릭스에서 상품추천에 사용
 - Matrix Factorization 알고리즘 이용
 
-###모델 기반 협업 필터링
+### 모델 기반 협업 필터링
 - 과거 사용자의 데이터를 이용해서 모델을 만들고 이를 이용해서 사용자의 성향을 예측
 - 데이터가 부족한 사용자에 대해서도 예측 가능
 - SVD(MF)
 - 
-##Recommendation Completion 알고리즘 이용
+## Recommendation Completion 알고리즘 이용
 - explicit feedback
 	- 1~5점과 같이 정확한 수치로 feedback
 - implicit feedback
@@ -47,10 +47,10 @@ Netflix와 왓챠는 별점을 바탕으로 추천
 	- baseline predictor와 같이 사용
 
 		
-###Matrix Factorization (MF)
+### Matrix Factorization (MF)
 - matrix completion 문제 해결 알고리즘
 - global structue를 찾아서 recommendation problem을 해결
-- 행렬 사진
+- 행렬 ![Alt text](https://github.com/pizzazaza/InternOutstagram/blob/master/study/image/recommend/matrix.png)
 	- 유저가 item에 대한 평가를 기록한 matrix
 	- *은 아직 사용자가 평가하지 않은 데이터를 의미
 		- 추천은 *의 값을 예측하는 문제
@@ -73,12 +73,11 @@ Netflix와 왓챠는 별점을 바탕으로 추천
 - 단일 모델에 가장 우수한 성능을 보인다고 알려져있다(다른 모델에 비해 8% 정도까지 개선 가능)
 - 평가
 	- RMSE(Root Mean Squared Error)를 사용
-	- 사진
 	- 전체 평균과 각각의 정보가 얼마나 많이 차이가 나는가를 평가
 	- predicted result와 ground truth label 비교 
 
 	
-###implicit feedback
+### implicit feedback
 - 간접적인 평가로 수치적으로 표현되지 않는다. 
 	- 아마존의 구매, 조회
 	- youtube의 재생, 반복 재생, 시청 횟수 등
@@ -109,7 +108,7 @@ Netflix와 왓챠는 별점을 바탕으로 추천
 - filter bubble : 내 입맛에 맞는 정보만 보여주고 나머지 정보는 감추어져 사용자의 감정 조장도 가능해 질 수 있다.
 
 
-###Apache Mahout
+### Apache Mahout
 - 하둡을 기반으로 맵 리듀스를 이용해 클러스터링, 분류, 분석작업 수행 가능
 - 대용량 데이터 분석이 가능하며 확장성을 제공하는 기계 학습 라이브러리
 - 기능
@@ -119,7 +118,7 @@ Netflix와 왓챠는 별점을 바탕으로 추천
 	- 패턴 마이닝
 	- 그 외에 회귀분석, 진화 알고리즘, 벡터 유사도 등 
 
-###요구사항
+### 요구사항
 - API
 	- 내가 좋아요 누른 최근 300개의 게시물 가져오기 
 	- tag에 대한 정보
@@ -165,9 +164,9 @@ Netflix와 왓챠는 별점을 바탕으로 추천
 	- CF는 데이터가 부족하면 적용하기 힘듬
 	- contents-based filtering은 적은 데이터에도 잘 동작
 		- 해시태그를 클러스터링을 통해 비슷한 주제 찾기 
-##boxplot
+## boxplot
 - input과 output사이의 연관 정도를 파악
-##참고
+## 참고
 http://sanghyukchun.github.io/73/
 http://sanghyukchun.github.io/95/
 http://bahnsville.tistory.com/894
