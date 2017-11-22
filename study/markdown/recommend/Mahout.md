@@ -10,6 +10,7 @@ Netflix와 왓챠는 별점을 바탕으로 추천
 ## 협업 필터링
 - 빅데이터 기반으로 만들어진 모델을 통해 새로운 데이터에 대입하여 분류
 - 사용자들의 과거 경향이 미래에도 그대로 유지될 것이라는 전제
+
 ### 사용자 기반 협업 필터링
 - 비슷한 선호도를 가지는 다른 고객들의 상품에 대한 평가에 근거하여 추천
 - 비슷한 성향을 가진 이웃을 찾고, 그 이웃의 선호도를 이용
@@ -29,7 +30,7 @@ Netflix와 왓챠는 별점을 바탕으로 추천
 - 과거 사용자의 데이터를 이용해서 모델을 만들고 이를 이용해서 사용자의 성향을 예측
 - 데이터가 부족한 사용자에 대해서도 예측 가능
 - SVD(MF)
-- 
+
 ## Recommendation Completion 알고리즘 이용
 - explicit feedback
 	- 1~5점과 같이 정확한 수치로 feedback
@@ -50,7 +51,7 @@ Netflix와 왓챠는 별점을 바탕으로 추천
 ### Matrix Factorization (MF)
 - matrix completion 문제 해결 알고리즘
 - global structue를 찾아서 recommendation problem을 해결
-- 행렬 ![Alt text](https://github.com/pizzazaza/InternOutstagram/blob/master/study/image/recommend/matrix.png)
+- 행렬 ![Alt text](https://oss.navercorp.com/sejun-kim/intern/blob/master/study/image/recommend/matrix.png)
 	- 유저가 item에 대한 평가를 기록한 matrix
 	- *은 아직 사용자가 평가하지 않은 데이터를 의미
 		- 추천은 *의 값을 예측하는 문제

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ex.recommend.dao.RecommendMapper">
+	<select id="selectUserForRecommend" resultType="ex.recommend.dto.UserDto">
+		SELECT 
+			User.seq
+		FROM 
+			User
+		WHERE
+			User.user_id like 'user%'
+		ORDER BY
+			User.seq
+		LIMIT
+			3500
+	</select>
+	<select id="selectLikeForRecommendByUserSeq" parameterType="Integer" resultType="ex.recommend.dto.LikeDto">
+		SELECT
+			Post_Like.user_seq, Post_Like.post_seq
+		FROM
+			Post_Like
+		WHERE
+			Post_Like.user_seq = #{seq}
+		ORDER BY
+			Post_Like.post_seq
+	</select>
+	<select id="selectViewForRecommendByUserSeq" parameterType="Integer" resultType="ex.recommend.dto.ViewDto">
+		SELECT 
+			Post_View.post_seq, max(view_time) as viewTime , count(seq) as viewCount
+		FROM  
+			Post_View
+		WHERE
+			Post_View.user_seq = #{seq}
+		GROUP BY 
+			Post_View.post_seq, Post_View.user_seq
+		ORDER BY
+			Post_View.post_seq;
+	</select>
+
+</mapper>
+

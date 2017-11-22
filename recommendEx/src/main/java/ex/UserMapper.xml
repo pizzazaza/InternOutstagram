@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.intern.outstagram.dao.UserDao">
+	<insert id="insertUser" useGeneratedKeys="true" keyProperty="seq" parameterType="com.intern.outstagram.domain.UserDomain">
+		INSERT INTO User (user_id, nickname, register_date)
+		VALUES (#{userId}, #{nickname}, #{registerDate})
+	</insert>
+	<select id="selectUserByUserId">
+		SELECT 
+			User.seq, User.user_id, User.nickname
+		FROM
+			User
+		WHERE
+			User.user_id = #{userId}
+	</select>
+</mapper>

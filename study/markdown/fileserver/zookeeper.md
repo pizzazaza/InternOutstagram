@@ -33,7 +33,7 @@
 	- 세션이 활성 상태에서 존재, 세션 종료시 삭제 
 	- tbd(to be decided: 결정되어야 하는 것)를 구현하고자 할대 유용 
 -Node
-	- 영구 노드(Persistent Node) : 노드에 데이터를 저장하면 일부러 삭제하지 않는 이상 사제되지 않고 영구적으로 저장 
+	- 영구 노드(Persistent Node) : 노드에 데이터를 저장하면 일부러 삭제하지 않는 이상 삭제되지 않고 영구적으로 저장 
 	- 임시 노드(Ephemeral Node) : 노드를 생성한 클라이언트의 세션이 연결되어 있을 경우만 유효
 	- 순차 노드(Sequence Node) : 노드를 생성시 자동으로 sequence 번호가 붙는 노드, 주로 분산락을 구현하는데 이용
 - 파일 시스템의 디렉토리 구조와 비슷
@@ -80,11 +80,10 @@
 
 
 ## 참고
-recipe <http://zookeeper.apache.org/doc/trunk/recipes.html>
-Zoopiter <http://d2.naver.com/helloworld/583580>
-Zookeeper를 활용한 redis cluster 구성 <http://d2.naver.com/helloworld/294797>
-
-<https://www.joinc.co.kr/w/man/12/zookeeper>
+- recipe <http://zookeeper.apache.org/doc/trunk/recipes.html>
+- Zoopiter <http://d2.naver.com/helloworld/583580>
+- Zookeeper를 활용한 redis cluster 구성 <http://d2.naver.com/helloworld/294797>
+- <https://www.joinc.co.kr/w/man/12/zookeeper>
 
 
 

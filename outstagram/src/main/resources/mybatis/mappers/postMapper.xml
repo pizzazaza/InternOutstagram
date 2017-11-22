@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.intern.outstagram.dao.PostInfoDao">
+	<insert id="insertPost" useGeneratedKeys="true" keyProperty="seq" parameterType="com.intern.outstagram.domain.PostDomain">
+		INSERT INTO Post (user_seq, context, create_date)
+		VALUES (#{userSeq}, #{context}, #{createDate})
+	</insert>
+	<select id="selectPost" resultType="com.intern.outstagram.domain.dto.PostViewDto">
+		SELECT 
+			User.user_Id, 
+			Post.seq, 
+			Post.context,
+			Post.like,
+			Post.view
+		FROM 
+			Post, User
+		WHERE 
+			Post.user_seq = User.seq
+		ORDER BY 
+			Post.create_date DESC
+		LIMIT 12
+	</select>
+	<select id="selectIsLikeByUserSeqAndPostSeq" resultType="Integer" parameterType="com.intern.outstagram.domain.dto.IsLikeForPostDto">
+		SELECT
+			count(post_seq)
+		FROM 
+			Post_Like
+		WHERE
+			post_seq = #{postSeq} AND user_seq = #{userSeq}
+	</select>
+	<select id="selectFilePathByPostId" parameterType="com.intern.outstagram.domain.dto.FileSearchDto" resultType="com.intern.outstagram.domain.dto.FileLocationDto">
+		SELECT
+			File.seq,
+			File.path,
+			File.original_file
+		FROM
+			File
+		WHERE
+			File.post_seq = #{postSeq}
+		ORDER BY 
+			File.seq
+		LIMIT 1
+	</select>
+	<update id="updatePostLikeByPostId" parameterType="com.intern.outstagram.domain.dto.LikeUpdateDto">
+		UPDATE Post SET Post.like = #{likeCount} WHERE seq = #{postSeq}
+	</update>
+	<insert id="insertPostLike" useGeneratedKeys="true" keyProperty="seq" parameterType="com.intern.outstagram.domain.PostLikeDomain">
+		INSERT INTO Post_Like (user_seq, post_seq)
+		VALUES (#{userSeq}, #{postSeq})
+	</insert>
+	<delete id="deletePostLike" parameterType="com.intern.outstagram.domain.PostLikeDomain">
+		DELETE FROM Post_Like WHERE user_seq = #{userSeq} and post_seq = #{postSeq}
+	</delete>
+	<insert id="insertPostView" useGeneratedKeys="true" keyProperty="seq"  parameterType="com.intern.outstagram.domain.dto.ViewUpdateDto">
+		INSERT INTO Post_View (user_seq, post_seq)
+		VALUES (#{userSeq}, #{postSeq})
+	</insert>
+	<update id="updatePostViewByPostSeq" parameterType="com.intern.outstagram.domain.dto.ViewUpdateDto">
+		UPDATE Post SET Post.view = #{viewCount} WHERE seq = #{postSeq}
+	</update>
+	<update id="updatePostViewTimeBySeq" parameterType="com.intern.outstagram.domain.dto.PostViewTimeDto">
+		UPDATE Post_View SET Post_View.view_time = #{stayTime} WHERE seq = #{seq}
+	</update>
+	<select id="selectPictureListByPostSeq" parameterType="Integer" resultType="Integer">
+		SELECT 
+			seq
+		FROM 
+			File
+		WHERE
+			post_seq = #{postSeq}
+		ORDER BY
+			seq
+	</select>
+</mapper>

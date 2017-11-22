@@ -1,0 +1,45 @@
+인턴십 일일업무보고 보내드립니다.
+ 
+11/1(수)
+
+1. 오늘 할 일
+- 로컬 환경에서 Outstagram 업로드하고 게시되는 화면, 팝업레이어 동작하고 플리킹까지 설계
+- 중간발표
+
+
+2. 오늘 한 일
+- 로컬 저장소에서 게시물의 이미지 가져오기 적용, 팝업 레이어 로컬 저장소에서 이미지 가져오기 적용 
+(https://oss.navercorp.com/sejun-kim/intern/commit/7e8f65ab2978e6674c3965de3927bab3f148517b#diff-87cb2cf4978e013403c7fb66ca191ff3) controller
+(https://oss.navercorp.com/sejun-kim/intern/commit/7e8f65ab2978e6674c3965de3927bab3f148517b#diff-9e7658ec67bda0bf6d868e3a7d25accf) service
+- 로컬 저장소에 업로드한 파일 저장 후 DB에도 파일과 게시물 정보 저장 적용
+(https://oss.navercorp.com/sejun-kim/intern/commit/7e8f65ab2978e6674c3965de3927bab3f148517b#diff-7f15b29201e2ecb387df01463cb09835) controller
+(https://oss.navercorp.com/sejun-kim/intern/commit/7e8f65ab2978e6674c3965de3927bab3f148517b#diff-60050294ff20213bec4171fb8fa8ab8b) service
+- 중간발표
+- file upload 개선
+(https://oss.navercorp.com/sejun-kim/intern/commit/a4862e5c32ec3c41aa2818733993902193663ba4)
+
+
+3. 다음 할 일
+- 콘텐츠 관리 기능 설계
+- 파일 서버 설계
+- 네아로 연동, 친구 ,좋아요. 관리 기능
+- 텍스트, 해시태그 관리 기능
+- 팝업레이어 플리킹 기능 설계
+
+
+4. 어려웠던 점
+- 오늘 발표에서 긴장한 탓에 잘못된 단어 선택을 하고 말을 자연스럽게 못한 거 같습니다. 최종 발표에서는 연습을 통해 매끄러운 발표를 진행하도록 하겠습니다.
+
+
+5. 느낀 점
+- 중간발표를 통해 팀원 분들의 피드백을 받았습니다. 이후 말씀해주신 내용을 적용하여 마지막 발표까지 프로젝트를 진행하도록 하겠습니다.
+
+
+6. 중간발표 피드백
+- 보안은 생략하고 추천 기능에 집중
+- 추천을 통해 보이고 싶은 모습을 정확하게 정하기
+- 조회 수 적용 방법(중복 허용 여부)
+- 기획한 내용을 모두 구현하기보다는 중요한 부분에 집중하여 진행
+- Content based filtering에서 지도 학습 시 데이터 정제 필요
+- 추천 결과 평가 방법이 부족
+- 기획한 전체 웹페이지가 동작하고, 추천기능이 동작하는 걸 확인 할 수 있도록 구현

@@ -48,7 +48,7 @@
 - HDFS클라이언트는 네임노드를 통해 파일이 저장된 블록의 위치를 조회하고, 해당 블록이 저장된 데이터 노드에 직접 데이터 조회
 
 #### HDFS Archtecture
-![alt text](https://github.com/pizzazaza/InternOutstagram/blob/master/study/image/recommend/HDFS_architecture.PNG)
+![Alt text](https://oss.navercorp.com/sejun-kim/intern/blob/master/study/image/recommend/HDFS_architecture.PNG)
 
 ### 보조 네임노드
 - EditLog
@@ -110,18 +110,11 @@
 	- directory based partitioning - 파티셔닝 메커니즘을 제공하는 추상화된 서비스를 만드는
 - replication(복제)
 
-## 하둡 개발 환경설정
-https://sites.google.com/site/medialoghadoop/01-hadub-gicho/02-hadub-gaebal-junbi
-이외에 많은 사이트 참고
-아니면 설치하고 업데이트
-
--------------
-
 
 
 ## 참고자료
-http://rocksea.tistory.com/282
-설치
-https://tecadmin.net/setup-hadoop-single-node-cluster-on-centos-redhat/#
+- [설치1](http://rocksea.tistory.com/282)
+- [설치2](https://sites.google.com/site/medialoghadoop/01-hadub-gicho/02-hadub-gaebal-junbi)
+- https://tecadmin.net/setup-hadoop-single-node-cluster-on-centos-redhat/#
 
 

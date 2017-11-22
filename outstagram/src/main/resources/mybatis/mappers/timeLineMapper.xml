@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.intern.outstagram.dao.TimeLineDao">
+	<select id="selectNewPostList" resultType="com.intern.outstagram.domain.dto.PostViewDto" parameterType="com.intern.outstagram.domain.dto.PageDto">
+		SELECT 
+			User.user_Id, 
+			Post.seq, 
+			Post.context,
+			Post.like,
+			Post.view
+		FROM 
+			Post, User
+		WHERE 
+			Post.user_seq = User.seq
+		ORDER BY 
+			Post.create_date DESC
+		LIMIT 
+			#{limit}
+		OFFSET 
+			#{offset}
+	</select>
+	<select id="selectPostLikeByUserSeq" resultType="Integer" parameterType="com.intern.outstagram.domain.dto.PageDto">
+		SELECT
+			Post_Like.post_seq
+		FROM
+			Post_Like
+		WHERE
+			Post_Like.user_seq = #{userSeq}
+		LIMIT
+			#{limit}
+		OFFSET
+			#{offset}
+	</select>
+	<select id="selectUserIdByUserSeq" resultType="String" parameterType="Integer">
+		SELECT
+			User.user_id
+		FROM
+			User
+		WHERE
+			User.seq = #{userSeq}
+	</select>
+	<select id="selectLikePostListByPostSeq" resultType="com.intern.outstagram.domain.dto.PostViewDto" parameterType="com.intern.outstagram.domain.dto.PageDto">
+		SELECT 
+			Post.user_seq, 
+			Post.seq, 
+			Post.context,
+			Post.like,
+			Post.view,
+			Post.create_date
+		FROM 
+			Post
+		WHERE 
+			Post.seq = #{postSeq}
+	</select>
+	<select id="selectRecommendPostByPostSeq" resultType="com.intern.outstagram.domain.dto.RPostViewDto" parameterType="com.intern.outstagram.domain.dto.RPageDto">
+		SELECT
+			Post.user_seq, 
+			Post.seq, 
+			Post.context,
+			Post.like,
+			Post.view,
+			Post.create_date
+		FROM
+			Post
+		WHERE
+			Post.seq = #{postSeq}
+	</select>
+	<select id="selectRecommendPostList" resultType="com.intern.outstagram.domain.dto.PostViewDto" parameterType="com.intern.outstagram.domain.dto.PageDto">
+		SELECT 
+			User.user_Id, 
+			Post.seq, 
+			Post.context,
+			Post.like,
+			Post.view
+		FROM 
+			Post, User
+		WHERE 
+			Post.user_seq = User.seq
+		ORDER BY 
+			Post.create_date DESC
+		LIMIT 
+			#{limit}
+		OFFSET 
+			#{offset}
+	</select>
+</mapper>

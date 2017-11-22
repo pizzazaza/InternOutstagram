@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.intern.outstagram.dao.RecommendDao">
+	<select id="selectFollowForRecommendByUserSeq" parameterType="Integer" resultType="FollowDto">
+		SELECT
+			Follower.user_seq, Follower.follower_seq
+		FROM
+			Follower
+		WHERE
+			Follower.user_seq = #{seq}
+	</select>
+	<select id="selectLikeForRecommendByUserSeq" parameterType="Integer" resultType="LikeDto">
+		SELECT
+			Post_Like.user_seq, Post_Like.post_seq
+		FROM
+			Post_Like
+		WHERE
+			Post_Like.user_seq = #{seq}
+		ORDER BY
+			Post_Like.post_seq
+	</select>
+	<select id="selectViewForRecommendByUserSeq" parameterType="Integer" resultType="ViewDto">
+		SELECT 
+			Post_View.post_seq, max(view_time) as viewTime , count(seq) as viewCount
+		FROM  
+			Post_View
+		WHERE
+			Post_View.user_seq = #{seq}
+		GROUP BY 
+			Post_View.post_seq, Post_View.user_seq
+		ORDER BY
+			Post_View.post_seq;
+	</select>
+	<select id="selectUserForRecommend" resultType="com.intern.outstagram.domain.dto.UserDto">
+		SELECT 
+			User.seq
+		FROM 
+			User
+		WHERE
+			User.user_id like 'user%'
+		ORDER BY
+			User.seq
+		LIMIT
+			3500
+	</select>
+	<select id="selectUserForRecommendSmall" resultType="com.intern.outstagram.domain.dto.UserDto" parameterType="Integer">
+		SELECT 
+			User.seq
+		FROM 
+			User
+		WHERE
+			User.user_id like 'user%'
+		ORDER BY
+			User.seq
+		LIMIT
+			10
+		OFFSET
+			#{offset}
+	</select>
+	<insert id="insertRandomUser" parameterType="com.intern.outstagram.domain.dto.RandomUserDto">
+		INSERT INTO User (User.seq, User.user_id, User.nickname, User.register_date) VALUES (#{seq}, #{userId}, #{nickname}, #{date});
+	</insert>
+	<select id="selectPostByUserId" parameterType="String" resultType="Integer">
+		SELECT 
+			Post.seq 
+		FROM 
+			Post, User
+		WHERE
+			User.user_id = #{userId} and Post.user_seq = User.seq
+		ORDER BY
+			Post.seq
+	</select>
+	<update id="updateRandomPostLikeAndViewByPostSeq" parameterType="com.intern.outstagram.domain.dto.PostViewLikeDto">
+		UPDATE Post SET Post.like = Post.like + 1, Post.view = Post.view + #{count} WHERE seq = #{postSeq}
+	</update>
+	<update id="updateRandomPostViewCountByPostSeq" parameterType="com.intern.outstagram.domain.dto.PostViewLikeDto">
+		UPDATE Post SET Post.view = Post.view + #{count} WHERE seq = #{postSeq}
+	</update>
+	<insert id="insertRandomPostLikeByPostSeqUserSeq" parameterType="com.intern.outstagram.domain.dto.LikeDto">
+		INSERT INTO Post_Like (user_seq, post_seq) VALUES (#{userSeq}, #{postSeq})
+	</insert>
+	<insert id="insertRandomPostViewByPostSeqUserSeq" parameterType="com.intern.outstagram.domain.dto.ViewDto">
+		INSERT INTO Post_View (user_seq, post_seq, view_time) VALUES (#{userSeq}, #{postSeq}, #{viewTime})
+	</insert>
+	<select id="selectUserSeq" parameterType="com.intern.outstagram.domain.dto.UserCategoryDto" resultType="Integer" >
+		SELECT 
+			User.seq
+		FROM
+			User
+		WHERE
+			user_id Like "user%"
+		ORDER BY
+			user_id
+		LIMIT 
+			#{limit}
+		OFFSET
+			#{offset}
+	</select>
+	<select id="selectUserPostView" parameterType="Integer" resultType="Integer">
+		SELECT
+			Post_View.post_seq
+		FROM
+			Post_View
+		WHERE
+			user_seq = #{userSeq}
+		ORDER BY
+			Post_View.post_seq
+		
+	</select>
+</mapper>
+
+
+

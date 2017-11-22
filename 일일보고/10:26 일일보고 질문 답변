@@ -1,0 +1,177 @@
+안녕하세요.
+인턴 김세준입니다. ​
+​
+1) 소스코드 관련 답변
+
+
+ 1. 소스코드 공유
+- 파일 저장 클래스 작성 : FileUtils
+(https://oss.navercorp.com/sejun-kim/intern/commit/1891f41a9deefafbb5655bed58a063cf0b986f74#diff-6d9f91508ae4535b88841a6c5aef3dea)
+- 파일 전송 클래스 작성 : FileServerClient
+(https://oss.navercorp.com/sejun-kim/intern/commit/1891f41a9deefafbb5655bed58a063cf0b986f74#diff-3dd398668aaed5e0304e54890601670a)
+- 이미지 업로드 page
+(https://oss.navercorp.com/sejun-kim/intern/commit/1891f41a9deefafbb5655bed58a063cf0b986f74#diff-6b002139f003aa6a483a944515fe2a84)
+- 이미지 업로드 js
+(https://oss.navercorp.com/sejun-kim/intern/commit/1891f41a9deefafbb5655bed58a063cf0b986f74#diff-51eb95d4e51bda1dc06a1cb027ec42ce)
+- popup layer template
+(https://oss.navercorp.com/sejun-kim/intern/commit/1891f41a9deefafbb5655bed58a063cf0b986f74#diff-9412b6b44228016ac45dbc8c0cbf2492)
+- popup layer js
+(https://oss.navercorp.com/sejun-kim/intern/commit/1891f41a9deefafbb5655bed58a063cf0b986f74#diff-8dafa2cc7d5282a8aac6d5b38f64d1fc)
+​
+​
+2. 커밋이력
+ ​커밋은 최소 하루에 한 번 진행하고 커밋 메시지를 구체적으로 작성하도록 하겠습니다.
+10/26(목)까지 작업한 내용 커밋
+(https://oss.navercorp.com/sejun-kim/intern/commit/1891f41a9deefafbb5655bed58a063cf0b986f74)
+​
+​
+3. 이클립스 설정파일
+ ​이클립스 설정파일에 대해 gitignore를 추가였습니다.
+(https://oss.navercorp.com/sejun-kim/intern/commit/d6386faf0b0ac5f21f8a864c07455a5ece4478e6)
+​
+​
+4. 2번과 같습니다.
+​
+2) 그 외 질문 답변
+1. 파일전송 디버깅 방법​
+a. 아직은 로컬에서 디버깅을 진행중이고 출력되는 로그를 통해서 진행하고 있습니다. 해결이 쉽지 않은 부분에 대해서는 (ommit/1891f41a9deefafbb5655bed58a063cf0b986f74#diff-aff9c4997ad7f3755f678a644c375b53) 47번째 줄처럼(CommonsMultipartResolver multipartResolver = new MyCommonsMultipartResolver();) 
+CommonsMultipartResolver를 상속받은 MyCommonsMultipartResolver를 만들어
+(https://oss.navercorp.com/sejun-kim/intern/commit/1891f41a9deefafbb5655bed58a063cf0b986f74#diff-3d0f2efceadad6bf5f2c4e68a0a3e61c) 정상적으로 동작하는 범위를 찾기 위해 사용하였습니다.  
+​​​
+b. 로그 포멧
+로그 포맷에 대해 <Pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{35} - %msg %n</Pattern> 이와 같은 패턴을 적용하였습니다.
+​
+아래는 실제 출력된 로그입니다.
+=============class com.intern.outstagram.service.impl.PostServiceImpl : setPostInfo() is running =============
+09:27:27.616 [http-bio-8080-exec-2] INFO c.i.outstagram.aop.LoggingAdvice -
+=============class com.sun.proxy.$Proxy59 : insertPost() is running =============
+09:27:27.616 [http-bio-8080-exec-2] DEBUG c.i.o.dao.PostInfoDao.insertPost - ==> Preparing: INSERT INTO Post (user_id, context, create_date) VALUES (?, ?, ?)
+09:27:27.617 [http-bio-8080-exec-2] DEBUG c.i.o.dao.PostInfoDao.insertPost - ==> Parameters: zmvmcm(String), asdfasdf(String), 2017-10-27 09:27:27.616(Timestamp)
+09:27:27.621 [http-bio-8080-exec-2] DEBUG c.i.o.dao.PostInfoDao.insertPost - <== Updates: 1
+09:27:27.622 [http-bio-8080-exec-2] INFO c.i.outstagram.aop.LoggingAdvice -
+=============class com.sun.proxy.$Proxy59 : insertPost() is over =============
+09:27:27.622 [http-bio-8080-exec-2] INFO c.i.o.service.impl.PostServiceImpl - name: 1508727727.png
+09:27:27.622 [http-bio-8080-exec-2] INFO c.i.o.service.impl.PostServiceImpl - size: 72979
+09:27:27.622 [http-bio-8080-exec-2] INFO c.i.o.service.impl.PostServiceImpl - class: [multipartFile=[Byte array resource [resource loaded from byte array]]]===========================
+09:27:27.622 [http-bio-8080-exec-2] INFO c.i.o.service.impl.PostServiceImpl - class: [Byte array resource [resource loaded from byte array]]===========================
+09:27:27.622 [http-bio-8080-exec-2] INFO c.i.o.service.impl.PostServiceImpl - ========== submit http://127.0.0.1:8002/file ==========
+09:27:27.771 [http-bio-8080-exec-2] INFO c.i.o.service.impl.PostServiceImpl - result : ok exit ==========
+09:27:27.772 [http-bio-8080-exec-2] INFO c.i.outstagram.aop.LoggingAdvice -
+=============class com.intern.outstagram.service.impl.PostServiceImpl : setPostInfo() is over =============
+함수의 시작과 끝을 출력하고 필요에 따라 INFO에 대한 로그를 출력하고 있습니다.
+​
+LoggingAdvice
+(https://oss.navercorp.com/sejun-kim/intern/commit/1891f41a9deefafbb5655bed58a063cf0b986f74#diff-9ee2ec7ae6b9c064ba9d7c7ce6f2c339)
+logback
+(https://oss.navercorp.com/sejun-kim/intern/commit/1891f41a9deefafbb5655bed58a063cf0b986f74#diff-46d1c40a68e051fa25af2b20988c9766)
+​
+​
+2. ip에 따른 설정파일
+​​죄송합니다. 제가 불분명하게 작성한거 같습니다. 환경에 따른 메이븐 설정은 아직 진행하지 않았습니다. 인턴십 과제를 진행하면서 여러 환경에서 설정파일을
+관리하는 방법에 대해 궁금하여 질문하였고 그에 대한 답변을 받았습니다.
+ 앞으로 프로젝트에 적용한 부분과 아닌부분에 대해서 명확하게 작성하고 적용한 부분에 대해서는 링크를 추가하도록 하겠습니다.
+​
+​
+​
+​
+- 코드 정리는 추가로 진행하도록 하겠습니다.​
+​
+감사합니다.
+김세준 드림
+​
+​
+-----Original Message-----
+From: "이동국"<dongguk.lee@navercorp.com> 
+To: "김세준[Se Jun Kim]"<sejun.kim@navercorp.com>; "고종봉"<jongbong.ko@navercorp.com>; 
+Cc: "안혜경"<cielo.ahn@navercorp.com>; "양승진"<seungjin.yang@navercorp.com>; 
+Sent: 2017-10-27 (금) 09:26:14
+Subject: RE: [일일보고] 10/26(목)
+ 
+안녕하세요. 
+카페개발 이동국입니다. 
+​
+일일보고를 보니 몇가지 궁금해서 메일 드립니다. 
+​
+oss는 https://oss.navercorp.com/sejun-kim/intern 인거죠.?
+​
+1) 소스코드 관련 요청
+1. 소스코드 작업의 경우 oss의 파일 URL을 함께 적어주시면 좋겠습니다. 
+​예를들면
+   - 파일 저장 클래스 작성 (링크)
+   - 파일 전송 클래스 작성 (링크)
+​
+2. 커밋이력을 보니 3일전 커밋이 최신인데요.
+하루에 한번정도는 커밋(푸시)해서 작업 내용을 남겨주시면 좋을듯 합니다. 
+​
+3. 아래 커밋내용을 보니 이클립스 설정파일도 푸시가 되어 있는데 설정파일은 대개 저장소에 올리지 않습니다. 
+​https://oss.navercorp.com/sejun-kim/intern/commit/47ba0132660dea999b432e5ed4d3a48277e0bcfb
+​
+4. 커밋 메시지도 조금 더 구체적이면 좋을듯 합니다. 
+​
+2) 그외 질문
+1. 파일전송 디버깅 방법​
+서버 로그를 통해 디버깅을 했다는 말인가요.? 여러방법을 알려주셨다는데 실제로는 어떻게 진행했는지 궁금합니다. 
+로그 포맷도 궁금해요. 
+​
+2. ip에 따른 설정파일 선택했다는데 해당되는 메이븐 설정은 어디서 보면 될까요.?
+​
+
+감사합니다. 
+이동국 드림 
+
+이 메일은 나눔글꼴로 작성되었습니다. 설치하기
+ 
+
+이동국 Lee DongGuk
+카페개발
+
+경기도 성남시 분당구 정자동 178-1 NAVER 그린팩토리 22층
+Tel 031-784-3219   Fax 031-784-3219   Mobile 010-2582-4694 
+Email  dongguk.lee@navercorp.com   Messenger  Line : fromm0
+
+navercorp 
+​
+​
+-----Original Message-----
+From: "김세준[Se Jun Kim]"<sejun.kim@navercorp.com> 
+To: "고종봉"<jongbong.ko@navercorp.com>; 
+Cc: "안혜경"<cielo.ahn@navercorp.com>; "양승진"<seungjin.yang@navercorp.com>; "이동국"<dongguk.lee@navercorp.com>; 
+Sent: 2017-10-26 (목) 23:37:14
+Subject: [일일보고] 10/26(목)
+ 
+인턴십 일일업무보고 보내드립니다. 
+​
+10/26(목)
+​
+1. 오늘 할 일
+- 파일 서버 설계
+- 팝업레이어 디자인
+​
+​
+2. 오늘 한 일
+- 파일서버 설계
+   - 파일 저장 클래스 작성
+   - 파일 전송 클래스 작성
+- 팝업레이어 디자인
+​
+​
+3. 다음 할 일
+- 지금까지 작성한 코드 정리
+       - 콘텐츠 관리 기능 설계
+   - 파일 서버 설계
+   - 네아로 연동, 친구 ,좋아요 관리 기능
+   - 텍스트, 해시태그 관리 기능
+- 팝업레이어 플리킹 기능 설계
+​
+​
+4. 어려웠던 점
+- 서버 사이에 파일전송시 문제가 발생하여 디버깅을 진행하였습니다. 3대의 서버 송수신 값만으로 디버깅을 진행하다 보니 시간을 많이
+소비하게 되었습니다. 멘토님이 log를 출력할 때 차례로 작성하거나 이분 탐색처럼 디버깅을 진행하는 방법, 상속을 이용해 클래스 호출 시
+중간에 코드를 작성하는 방법 등 여러 방법을 알려주셨습니다.
+​
+​
+5. 느낀 점
+- 오늘 과제를 진행하며 실무에서 설정파일을 어떻게 관리하는지 멘토님에게 질문하였습니다. 답변으로 메이븐의 옵션을 이용해서 ip에 따라
+설정파일을 선택하고 각 환경에 맞는 프로젝트를 실행하는 등 여러 방법을 들을 수 있었습니다.
+실무에서는 고려해야 할 사항도 많으며 이러한 문제를 해결하는 여러 해결법을 사용한다는 것을 알 수 있었습니다.
+​

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.intern.dao.FilePathDao">
+	<select id="selectFilePathByFileSeq" parameterType="Integer" resultType="com.intern.domain.dto.FilePathDto">
+		SELECT 
+			path, original_file 
+		FROM 
+			File 
+		WHERE 
+			seq = #{fileSeq};
+	</select>
+	<select id="selectFilePathByPostSeq" parameterType="Integer" resultType="com.intern.domain.dto.FilePathDto">
+		SELECT
+			path, thumnail_file
+		FROM
+			File
+		WHERE
+			post_seq = #{postSeq}
+		ORDER BY
+			seq 
+		LIMIT
+			1
+	</select>
+</mapper>
